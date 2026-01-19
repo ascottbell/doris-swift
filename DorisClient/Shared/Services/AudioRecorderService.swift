@@ -26,9 +26,9 @@ class AudioRecorderService: NSObject, ObservableObject {
     private var silenceCallback: ((String) -> Void)?
     private var currentTranscription: String = ""
 
-    private let silenceThreshold: TimeInterval = 1.5
-    private let noSpeechTimeout: TimeInterval = 3.0  // Give up if no transcription after audio activity
-    private let maxRecordingDuration: TimeInterval = 15.0  // Maximum recording time
+    private let silenceThreshold: TimeInterval = 2.5  // Wait longer for natural pauses
+    private let noSpeechTimeout: TimeInterval = 5.0  // Give up if no transcription after audio activity
+    private let maxRecordingDuration: TimeInterval = 30.0  // Maximum recording time
     private let audioActivityThreshold: Double = 0.15  // Power level to consider as audio activity
 
     override init() {

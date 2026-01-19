@@ -209,6 +209,14 @@ struct ChatPane: View {
                     }
                 }
             }
+            .onAppear {
+                // Scroll to bottom on initial load
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    if let last = viewModel.conversationHistory.last {
+                        proxy.scrollTo(last.id, anchor: .bottom)
+                    }
+                }
+            }
         }
     }
 

@@ -10,6 +10,7 @@ class DorisViewModel: ObservableObject {
     @Published var conversationHistory: [ConversationMessage] = []
     @Published var wakeWordEnabled: Bool = false
     @Published var wakeWordActive: Bool = false
+    @AppStorage("microphoneDisabled") var microphoneDisabled: Bool = false
 
     private let api = DorisAPIService()
     private let recorder = AudioRecorderService()
@@ -60,11 +61,32 @@ class DorisViewModel: ObservableObject {
         syncService.saveHistory(conversationHistory)
     }
 
+    // MARK: - Microphone Control
+
+    /// Set microphone disabled state (for use during meetings)
+    func setMicrophoneDisabled(_ disabled: Bool) {
+        microphoneDisabled = disabled
+        if disabled {
+            // Stop any active listening and wake word
+            disableWakeWord()
+            if state == .listening {
+                stopListening()
+            }
+            print("DorisViewModel: Microphone disabled - voice input blocked")
+        } else {
+            print("DorisViewModel: Microphone enabled - voice input allowed")
+        }
+    }
+
     // MARK: - Wake Word
 
     /// Enable "Hey Doris" wake word detection
     func enableWakeWord() {
         guard !wakeWordEnabled else { return }
+        guard !microphoneDisabled else {
+            print("DorisViewModel: Cannot enable wake word - microphone is disabled")
+            return
+        }
         wakeWordEnabled = true
 
         wakeWordService.start { [weak self] in
@@ -126,6 +148,11 @@ class DorisViewModel: ObservableObject {
     }
 
     func startListening() {
+        guard !microphoneDisabled else {
+            print("DorisViewModel: Cannot start listening - microphone is disabled")
+            return
+        }
+
         state = .listening
         lastResponse = ""
 

@@ -45,7 +45,7 @@ struct DorisClientMacApp: App {
                 .environmentObject(viewModel)
                 .environmentObject(menuBarManager)
         } label: {
-            Image(systemName: "bubble.left.fill")
+            MenuBarIcon(micDisabled: viewModel.microphoneDisabled)
         }
         .menuBarExtraStyle(.window)
 
@@ -78,6 +78,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
+/// Menu bar icon that changes when mic is disabled
+struct MenuBarIcon: View {
+    let micDisabled: Bool
+
+    var body: some View {
+        if micDisabled {
+            Image(systemName: "mic.slash.fill")
+                .foregroundColor(.orange)
+        } else {
+            Image(systemName: "bubble.left.fill")
+        }
+    }
+}
+
 /// Settings view for configuring Doris
 struct SettingsView: View {
     @EnvironmentObject var viewModel: DorisViewModel
@@ -88,6 +102,19 @@ struct SettingsView: View {
             Section("Server") {
                 TextField("Server URL", text: $serverURL)
                     .textFieldStyle(.roundedBorder)
+            }
+
+            Section("Microphone") {
+                Toggle("Disable Microphone", isOn: Binding(
+                    get: { viewModel.microphoneDisabled },
+                    set: { disabled in
+                        viewModel.setMicrophoneDisabled(disabled)
+                    }
+                ))
+
+                Text("Disable all voice input for use during meetings or calls.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
 
             Section("Wake Word") {
@@ -101,6 +128,7 @@ struct SettingsView: View {
                         }
                     }
                 ))
+                .disabled(viewModel.microphoneDisabled)
 
                 Text("Say \"Hey Doris\" to activate voice input from anywhere.")
                     .font(.caption)
@@ -123,7 +151,7 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 400, height: 300)
+        .frame(width: 400, height: 380)
         .padding()
     }
 }
