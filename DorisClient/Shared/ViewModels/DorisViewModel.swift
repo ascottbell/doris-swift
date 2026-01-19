@@ -10,27 +10,61 @@ class DorisViewModel: ObservableObject {
     @Published var conversationHistory: [ConversationMessage] = []
     @Published var wakeWordEnabled: Bool = false
     @Published var wakeWordActive: Bool = false
-    @AppStorage("microphoneDisabled") var microphoneDisabled: Bool = false
 
     private let api = DorisAPIService()
     private let recorder = AudioRecorderService()
     private let player = AudioPlayerService()
     private let wakeWordService = WakeWordService()
+    private let syncService = ConversationSyncService.shared
 
     private let minimumThinkingTime: UInt64 = 2_000_000_000
+    private var syncObserver: NSObjectProtocol?
+
+    init() {
+        // Load history from iCloud
+        conversationHistory = syncService.loadHistory()
+
+        // Listen for external sync changes
+        syncObserver = NotificationCenter.default.addObserver(
+            forName: .conversationHistoryDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.reloadHistoryFromCloud()
+            }
+        }
+
+        // Request location permission on launch
+        LocationService.shared.requestPermission()
+    }
+
+    deinit {
+        if let observer = syncObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
+    /// Reload history when external change detected
+    private func reloadHistoryFromCloud() {
+        let cloudHistory = syncService.loadHistory()
+        // Merge: keep newer messages
+        if cloudHistory.count > conversationHistory.count {
+            conversationHistory = cloudHistory
+            print("DorisViewModel: Updated history from iCloud (\(cloudHistory.count) messages)")
+        }
+    }
+
+    /// Save history to iCloud after changes
+    private func saveHistoryToCloud() {
+        syncService.saveHistory(conversationHistory)
+    }
 
     // MARK: - Wake Word
 
     /// Enable "Hey Doris" wake word detection
     func enableWakeWord() {
         guard !wakeWordEnabled else { return }
-
-        // Don't enable wake word if microphone is disabled
-        guard !microphoneDisabled else {
-            print("DorisViewModel: Cannot enable wake word - microphone disabled")
-            return
-        }
-
         wakeWordEnabled = true
 
         wakeWordService.start { [weak self] in
@@ -92,18 +126,6 @@ class DorisViewModel: ObservableObject {
     }
 
     func startListening() {
-        // Block listening if microphone is disabled
-        guard !microphoneDisabled else {
-            state = .error("Microphone disabled")
-            Task {
-                try? await Task.sleep(nanoseconds: 2_000_000_000)
-                if case .error = self.state {
-                    state = .idle
-                }
-            }
-            return
-        }
-
         state = .listening
         lastResponse = ""
 
@@ -154,6 +176,9 @@ class DorisViewModel: ObservableObject {
                 lastResponse = response.text
                 let dorisMessage = ConversationMessage(text: response.text, isUser: false, timestamp: Date())
                 conversationHistory.append(dorisMessage)
+
+                // Sync to iCloud
+                saveHistoryToCloud()
 
                 if withAudio, let audioData = response.audioData, !audioData.isEmpty {
                     print("DorisViewModel: Playing audio, setting state to .speaking")
@@ -210,6 +235,7 @@ class DorisViewModel: ObservableObject {
     func clearHistory() {
         conversationHistory = []
         lastResponse = ""
+        syncService.clearHistory()
     }
 
     /// Search messages in conversation history (in-memory filter)
@@ -218,27 +244,6 @@ class DorisViewModel: ObservableObject {
         let lowercasedQuery = query.lowercased()
         return conversationHistory.filter { message in
             message.text.lowercased().contains(lowercasedQuery)
-        }
-    }
-
-    // MARK: - Microphone Control
-
-    /// Set microphone disabled state with side effects
-    func setMicrophoneDisabled(_ disabled: Bool) {
-        microphoneDisabled = disabled
-
-        if disabled {
-            // Stop any active listening
-            if state == .listening {
-                stopListening()
-            }
-            // Disable wake word when mic is disabled
-            if wakeWordEnabled {
-                disableWakeWord()
-            }
-            print("DorisViewModel: Microphone disabled")
-        } else {
-            print("DorisViewModel: Microphone enabled")
         }
     }
 }

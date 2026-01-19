@@ -28,8 +28,8 @@ struct DorisClientMacApp: App {
             ChatWindowView()
                 .environmentObject(viewModel)
                 .onAppear {
-                    // Enable wake word detection when app launches (unless mic is disabled)
-                    if !viewModel.wakeWordEnabled && !viewModel.microphoneDisabled {
+                    // Enable wake word detection when app launches
+                    if !viewModel.wakeWordEnabled {
                         viewModel.enableWakeWord()
                     }
                 }
@@ -45,7 +45,7 @@ struct DorisClientMacApp: App {
                 .environmentObject(viewModel)
                 .environmentObject(menuBarManager)
         } label: {
-            MenuBarIcon(microphoneDisabled: viewModel.microphoneDisabled)
+            Image(systemName: "bubble.left.fill")
         }
         .menuBarExtraStyle(.window)
 
@@ -85,26 +85,6 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section("Microphone") {
-                Toggle("Disable Microphone", isOn: Binding(
-                    get: { viewModel.microphoneDisabled },
-                    set: { disabled in
-                        viewModel.setMicrophoneDisabled(disabled)
-                    }
-                ))
-                .toggleStyle(.switch)
-
-                if viewModel.microphoneDisabled {
-                    Label("Voice input and wake word are disabled", systemImage: "mic.slash.fill")
-                        .font(.caption)
-                        .foregroundColor(.orange)
-                } else {
-                    Text("Disable for meetings or when you don't want Doris listening.")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-            }
-
             Section("Server") {
                 TextField("Server URL", text: $serverURL)
                     .textFieldStyle(.roundedBorder)
@@ -121,7 +101,6 @@ struct SettingsView: View {
                         }
                     }
                 ))
-                .disabled(viewModel.microphoneDisabled)
 
                 Text("Say \"Hey Doris\" to activate voice input from anywhere.")
                     .font(.caption)
@@ -144,22 +123,7 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 400, height: 320)
+        .frame(width: 400, height: 300)
         .padding()
-    }
-}
-
-/// Menu bar icon that shows microphone state
-struct MenuBarIcon: View {
-    let microphoneDisabled: Bool
-
-    var body: some View {
-        if microphoneDisabled {
-            Image(systemName: "bubble.left.and.exclamationmark.bubble.right.fill")
-                .symbolRenderingMode(.palette)
-                .foregroundStyle(.orange, .secondary)
-        } else {
-            Image(systemName: "bubble.left.fill")
-        }
     }
 }
