@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 /// Syncs conversation history across devices using iCloud key-value store
 @MainActor
