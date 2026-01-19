@@ -16,50 +16,8 @@ class DorisViewModel: ObservableObject {
     private let recorder = AudioRecorderService()
     private let player = AudioPlayerService()
     private let wakeWordService = WakeWordService()
-    private let syncService = ConversationSyncService.shared
 
     private let minimumThinkingTime: UInt64 = 2_000_000_000
-    private var syncObserver: NSObjectProtocol?
-
-    init() {
-        // Load history from iCloud
-        conversationHistory = syncService.loadHistory()
-
-        // Listen for external sync changes
-        syncObserver = NotificationCenter.default.addObserver(
-            forName: .conversationHistoryDidChange,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            Task { @MainActor in
-                self?.reloadHistoryFromCloud()
-            }
-        }
-
-        // Request location permission on launch
-        LocationService.shared.requestPermission()
-    }
-
-    deinit {
-        if let observer = syncObserver {
-            NotificationCenter.default.removeObserver(observer)
-        }
-    }
-
-    /// Reload history when external change detected
-    private func reloadHistoryFromCloud() {
-        let cloudHistory = syncService.loadHistory()
-        // Merge: keep newer messages
-        if cloudHistory.count > conversationHistory.count {
-            conversationHistory = cloudHistory
-            print("DorisViewModel: Updated history from iCloud (\(cloudHistory.count) messages)")
-        }
-    }
-
-    /// Save history to iCloud after changes
-    private func saveHistoryToCloud() {
-        syncService.saveHistory(conversationHistory)
-    }
 
     // MARK: - Wake Word
 
@@ -197,9 +155,6 @@ class DorisViewModel: ObservableObject {
                 let dorisMessage = ConversationMessage(text: response.text, isUser: false, timestamp: Date())
                 conversationHistory.append(dorisMessage)
 
-                // Sync to iCloud
-                saveHistoryToCloud()
-
                 if withAudio, let audioData = response.audioData, !audioData.isEmpty {
                     print("DorisViewModel: Playing audio, setting state to .speaking")
                     state = .speaking
@@ -255,7 +210,6 @@ class DorisViewModel: ObservableObject {
     func clearHistory() {
         conversationHistory = []
         lastResponse = ""
-        syncService.clearHistory()
     }
 
     /// Search messages in conversation history (in-memory filter)
