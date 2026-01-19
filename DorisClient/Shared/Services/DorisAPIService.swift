@@ -104,14 +104,11 @@ class DorisAPIService {
             throw APIError.invalidURL
         }
 
-        // Get current location if available
-        let location = await LocationService.shared.getCurrentLocation()
-
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let chatRequest = ChatRequest(message: message, context: ClientContext(location: location))
+        let chatRequest = ChatRequest(message: message, context: ClientContext(location: nil))
         request.httpBody = try JSONEncoder().encode(chatRequest)
 
         let (data, response) = try await URLSession.shared.data(for: request)
