@@ -10,6 +10,8 @@
 	<string>Doris needs microphone access to listen to your voice commands.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Doris uses speech recognition to understand your voice.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Doris uses your location to provide relevant local information like weather and directions.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

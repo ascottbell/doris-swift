@@ -24,7 +24,7 @@ enum DorisAnimationState: Equatable {
         case .thinking: return false
         }
     }
-    
+
     var power: Double {
         switch self {
         case .idle: return 0
@@ -32,15 +32,127 @@ enum DorisAnimationState: Equatable {
         case .thinking: return 0
         }
     }
+
+    var isListening: Bool {
+        if case .listening = self { return true }
+        return false
+    }
 }
 
 struct DorisAnimationView: View {
     let state: DorisAnimationState
 
     var body: some View {
-        DorisSceneView(state: state)
-            .frame(width: 250, height: 250)
-            .shadow(color: .black.opacity(0.3), radius: 12, x: 0, y: 12)
+        ZStack {
+            // Ripples behind the donut
+            RippleEffectView(state: state)
+                .frame(width: 400, height: 400)
+
+            // The donut/swirl - wider frame to prevent clipping during morph
+            DorisSceneView(state: state)
+                .frame(width: 320, height: 280)
+                .shadow(color: .black.opacity(0.3), radius: 12, x: 0, y: 12)
+        }
+    }
+}
+
+/// Concentric ripples emanating outward like sound waves
+struct RippleEffectView: View {
+    let state: DorisAnimationState
+
+    @State private var rippleIDs: [UUID] = []
+    @State private var baselineTimer: Timer?
+    @State private var lastPowerBurstTime: Date = .distantPast
+    @State private var isActive: Bool = false
+    @State private var wasListening: Bool = false
+
+    private let baselineInterval: Double = 1.0
+    private let powerThreshold: Double = 0.12
+    private let maxRipples: Int = 6
+
+    var body: some View {
+        ZStack {
+            ForEach(rippleIDs, id: \.self) { _ in
+                SingleRippleView()
+            }
+        }
+        .onChange(of: state) { oldState, newState in
+            let wasListeningBefore = oldState.isListening
+            let isListeningNow = newState.isListening
+
+            if isListeningNow && !wasListeningBefore {
+                startRipples()
+            } else if !isListeningNow && wasListeningBefore {
+                stopRipples()
+            }
+
+            // Handle power changes while listening
+            if isListeningNow && isActive {
+                handlePowerChange(newState.power)
+            }
+        }
+    }
+
+    private func startRipples() {
+        isActive = true
+        spawnRipple()
+        baselineTimer = Timer.scheduledTimer(withTimeInterval: baselineInterval, repeats: true) { _ in
+            DispatchQueue.main.async {
+                if self.isActive {
+                    self.spawnRipple()
+                }
+            }
+        }
+    }
+
+    private func stopRipples() {
+        isActive = false
+        baselineTimer?.invalidate()
+        baselineTimer = nil
+    }
+
+    private func handlePowerChange(_ power: Double) {
+        if power > powerThreshold {
+            let now = Date()
+            if now.timeIntervalSince(lastPowerBurstTime) > 0.2 {
+                lastPowerBurstTime = now
+                spawnRipple()
+            }
+        }
+    }
+
+    private func spawnRipple() {
+        let id = UUID()
+        rippleIDs.append(id)
+
+        // Remove after animation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+            rippleIDs.removeAll { $0 == id }
+        }
+
+        // Limit count
+        if rippleIDs.count > maxRipples {
+            rippleIDs.removeFirst()
+        }
+    }
+}
+
+/// A single ripple that animates on appear
+struct SingleRippleView: View {
+    @State private var scale: CGFloat = 1.0
+    @State private var opacity: Double = 0.6
+
+    var body: some View {
+        Circle()
+            .stroke(Color.white.opacity(opacity), lineWidth: 2)
+            .frame(width: 250, height: 250)  // Match donut size
+            .scaleEffect(scale)
+            .onAppear {
+                withAnimation(.easeOut(duration: 1.5)) {
+                    scale = 1.8  // Expand outward from donut edge
+                    opacity = 0
+                }
+            }
     }
 }
 
@@ -114,8 +226,8 @@ struct DorisSceneView: UIViewRepresentable {
         private var isMorphing: Bool = false
         private let morphDuration: CFTimeInterval = 0.6
 
-        private let length: Float = 30.0
-        private let radius: Float = 5.6
+        private let length: Float = 50.0      // Much larger for testing
+        private let radius: Float = 10.0     // Much larger for testing
         private let segments = 200
         private let tubeRadius: Float = 1.5
         private let radialSegments = 12
@@ -248,10 +360,10 @@ struct DorisSceneView: UIViewRepresentable {
 
         private func generatePath(progress: Float, power: Double, breathe: Float) -> [SCNVector3] {
             var points: [SCNVector3] = []
-            
-            // Use segments + 1 to ensure the path closes properly
-            // The last point will be at the same position as the first
-            for i in 0...segments {
+
+            // Generate exactly 'segments' points (no duplicate endpoint)
+            // The tube geometry will close the loop by connecting last ring to first
+            for i in 0..<segments {
                 let p = Float(i) / Float(segments)
                 let loopPoint = loopCurvePoint(p: p)
 
@@ -299,9 +411,11 @@ struct DorisSceneView: UIViewRepresentable {
                 let next = path[(i + 1) % count]
 
                 let tangent = normalize(next - prev)
-                var up = SCNVector3(0, 1, 0)
-                if abs(dot(tangent, up)) > 0.9 { up = SCNVector3(1, 0, 0) }
-                
+                // Use (0, 0, 1) as primary up vector - works well for circle in XY plane
+                // This prevents frame twist at the seam where the tube closes
+                var up = SCNVector3(0, 0, 1)
+                if abs(dot(tangent, up)) > 0.9 { up = SCNVector3(0, 1, 0) }
+
                 let right = normalize(cross(tangent, up))
                 let forward = normalize(cross(right, tangent))
 
@@ -314,11 +428,11 @@ struct DorisSceneView: UIViewRepresentable {
             }
 
             // Build triangle indices - connect each ring to the next
-            // For a closed loop, we connect ring (count-1) back to ring 0
-            for i in 0..<(count - 1) {
+            // INCLUDING connecting the last ring back to the first ring to close the loop
+            for i in 0..<count {
                 let currentRing = i
-                let nextRing = i + 1
-                
+                let nextRing = (i + 1) % count  // Wrap around to close the loop
+
                 for j in 0..<radialSegments {
                     let nextSeg = (j + 1) % radialSegments
                     let a = UInt32(currentRing * radialSegments + j)

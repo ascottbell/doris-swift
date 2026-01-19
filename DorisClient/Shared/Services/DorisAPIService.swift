@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 class DorisAPIService {
     var baseURL: String {
@@ -29,13 +30,34 @@ class DorisAPIService {
         let content: String
     }
 
+    struct ClientLocation: Codable {
+        let lat: Double
+        let lon: Double
+        let accuracy: Double?
+    }
+
     struct ClientContext: Codable {
         let device: String?
         let timestamp: String?
+        let location: ClientLocation?
 
-        init(device: String = "macOS") {
-            self.device = device
+        init(device: String? = nil, location: CLLocation? = nil) {
+            #if os(iOS)
+            self.device = device ?? "iOS"
+            #else
+            self.device = device ?? "macOS"
+            #endif
             self.timestamp = ISO8601DateFormatter().string(from: Date())
+
+            if let loc = location {
+                self.location = ClientLocation(
+                    lat: loc.coordinate.latitude,
+                    lon: loc.coordinate.longitude,
+                    accuracy: loc.horizontalAccuracy
+                )
+            } else {
+                self.location = nil
+            }
         }
     }
 
@@ -82,11 +104,14 @@ class DorisAPIService {
             throw APIError.invalidURL
         }
 
+        // Get current location if available
+        let location = await LocationService.shared.getCurrentLocation()
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let chatRequest = ChatRequest(message: message, context: ClientContext())
+        let chatRequest = ChatRequest(message: message, context: ClientContext(location: location))
         request.httpBody = try JSONEncoder().encode(chatRequest)
 
         let (data, response) = try await URLSession.shared.data(for: request)

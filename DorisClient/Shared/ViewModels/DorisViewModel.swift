@@ -16,8 +16,50 @@ class DorisViewModel: ObservableObject {
     private let recorder = AudioRecorderService()
     private let player = AudioPlayerService()
     private let wakeWordService = WakeWordService()
+    private let syncService = ConversationSyncService.shared
 
     private let minimumThinkingTime: UInt64 = 2_000_000_000
+    private var syncObserver: NSObjectProtocol?
+
+    init() {
+        // Load history from iCloud
+        conversationHistory = syncService.loadHistory()
+
+        // Listen for external sync changes
+        syncObserver = NotificationCenter.default.addObserver(
+            forName: .conversationHistoryDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.reloadHistoryFromCloud()
+            }
+        }
+
+        // Request location permission on launch
+        LocationService.shared.requestPermission()
+    }
+
+    deinit {
+        if let observer = syncObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
+    /// Reload history when external change detected
+    private func reloadHistoryFromCloud() {
+        let cloudHistory = syncService.loadHistory()
+        // Merge: keep newer messages
+        if cloudHistory.count > conversationHistory.count {
+            conversationHistory = cloudHistory
+            print("DorisViewModel: Updated history from iCloud (\(cloudHistory.count) messages)")
+        }
+    }
+
+    /// Save history to iCloud after changes
+    private func saveHistoryToCloud() {
+        syncService.saveHistory(conversationHistory)
+    }
 
     // MARK: - Wake Word
 
@@ -110,7 +152,7 @@ class DorisViewModel: ObservableObject {
         recorder.start { [weak self] power, transcription in
             self?.audioPower = power
         } onSilenceDetected: { [weak self] finalText in
-            self?.sendMessage(finalText)
+            self?.sendVoiceMessage(finalText)
         }
     }
 
@@ -121,14 +163,15 @@ class DorisViewModel: ObservableObject {
 
     // MARK: - Send Message (voice or text)
 
-    func sendMessage(_ text: String) {
+    /// Internal send with audio control
+    private func sendMessage(_ text: String, withAudio: Bool) {
         guard !text.isEmpty else {
             print("DorisViewModel: sendMessage called with empty text, returning to idle")
             state = .idle
             return
         }
 
-        print("DorisViewModel: Setting state to .thinking")
+        print("DorisViewModel: Setting state to .thinking (withAudio: \(withAudio))")
         state = .thinking
 
         let userMessage = ConversationMessage(text: text, isUser: true, timestamp: Date())
@@ -139,8 +182,7 @@ class DorisViewModel: ObservableObject {
             print("DorisViewModel: Starting API call")
 
             do {
-                // Request audio on platforms where we'll play it
-                let response = try await api.chat(message: text, includeAudio: true)
+                let response = try await api.chat(message: text, includeAudio: withAudio)
 
                 let elapsed = DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds
                 print("DorisViewModel: API returned after \(elapsed / 1_000_000)ms")
@@ -155,7 +197,10 @@ class DorisViewModel: ObservableObject {
                 let dorisMessage = ConversationMessage(text: response.text, isUser: false, timestamp: Date())
                 conversationHistory.append(dorisMessage)
 
-                if let audioData = response.audioData, !audioData.isEmpty {
+                // Sync to iCloud
+                saveHistoryToCloud()
+
+                if withAudio, let audioData = response.audioData, !audioData.isEmpty {
                     print("DorisViewModel: Playing audio, setting state to .speaking")
                     state = .speaking
 
@@ -173,7 +218,7 @@ class DorisViewModel: ObservableObject {
                         self?.resumeWakeWord()
                     }
                 } else {
-                    print("DorisViewModel: No audio data")
+                    print("DorisViewModel: Text-only response (no audio)")
                     state = .idle
                     wakeWordActive = false
                     resumeWakeWord()
@@ -192,9 +237,14 @@ class DorisViewModel: ObservableObject {
         }
     }
 
-    /// Send text without voice (for keyboard input)
+    /// Send voice message (will speak response)
+    func sendVoiceMessage(_ text: String) {
+        sendMessage(text, withAudio: true)
+    }
+
+    /// Send text message (text-only response, no TTS)
     func sendTextMessage(_ text: String) {
-        sendMessage(text)
+        sendMessage(text, withAudio: false)
     }
 
     func stopSpeaking() {
@@ -205,6 +255,16 @@ class DorisViewModel: ObservableObject {
     func clearHistory() {
         conversationHistory = []
         lastResponse = ""
+        syncService.clearHistory()
+    }
+
+    /// Search messages in conversation history (in-memory filter)
+    func searchMessages(query: String) -> [ConversationMessage] {
+        guard !query.isEmpty else { return [] }
+        let lowercasedQuery = query.lowercased()
+        return conversationHistory.filter { message in
+            message.text.lowercased().contains(lowercasedQuery)
+        }
     }
 
     // MARK: - Microphone Control
