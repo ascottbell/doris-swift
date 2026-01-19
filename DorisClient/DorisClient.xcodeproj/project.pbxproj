@@ -1,0 +1,680 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000001 /* DorisClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000 /* DorisClientApp.swift */; };
+		A1000003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002 /* ContentView.swift */; };
+		A1000023 /* ListeningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022 /* ListeningView.swift */; };
+		A1000025 /* ThinkingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024 /* ThinkingView.swift */; };
+		A1000027 /* SpeakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000026 /* SpeakingView.swift */; };
+		E4838C6C2F05C868001DC1D0 /* MorphingAnimationView 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4838C6B2F05C868001DC1D0 /* MorphingAnimationView 2.swift */; };
+		E48666592F1C970600A803A9 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664F2F1C970600A803A9 /* AudioRecorderService.swift */; };
+		E486665A2F1C970600A803A9 /* DorisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666532F1C970600A803A9 /* DorisViewModel.swift */; };
+		E486665C2F1C970600A803A9 /* WakeWordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666512F1C970600A803A9 /* WakeWordService.swift */; };
+		E486665E2F1C970600A803A9 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664E2F1C970600A803A9 /* AudioPlayerService.swift */; };
+		E48666602F1C970600A803A9 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666552F1C970600A803A9 /* Color+Hex.swift */; };
+		E48666612F1C970600A803A9 /* DorisState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664A2F1C970600A803A9 /* DorisState.swift */; };
+		E48666622F1C970600A803A9 /* DorisAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666502F1C970600A803A9 /* DorisAPIService.swift */; };
+		E48666632F1C970600A803A9 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664F2F1C970600A803A9 /* AudioRecorderService.swift */; };
+		E48666642F1C970600A803A9 /* DorisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666532F1C970600A803A9 /* DorisViewModel.swift */; };
+		E48666662F1C970600A803A9 /* WakeWordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666512F1C970600A803A9 /* WakeWordService.swift */; };
+		E48666682F1C970600A803A9 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664E2F1C970600A803A9 /* AudioPlayerService.swift */; };
+		E486666A2F1C970600A803A9 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666552F1C970600A803A9 /* Color+Hex.swift */; };
+		E486666B2F1C970600A803A9 /* DorisState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664A2F1C970600A803A9 /* DorisState.swift */; };
+		E486666C2F1C970600A803A9 /* DorisAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666502F1C970600A803A9 /* DorisAPIService.swift */; };
+		E48666752F1C97BC00A803A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E48666722F1C97BC00A803A9 /* Info.plist */; };
+		E48666762F1C97BC00A803A9 /* ChatPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486666D2F1C97BC00A803A9 /* ChatPopoverView.swift */; };
+		E48666772F1C97BC00A803A9 /* ChatWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486666E2F1C97BC00A803A9 /* ChatWindowView.swift */; };
+		E48666782F1C97BC00A803A9 /* DorisSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486666F2F1C97BC00A803A9 /* DorisSceneView.swift */; };
+		E48666792F1C97BC00A803A9 /* GlobalHotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666712F1C97BC00A803A9 /* GlobalHotkey.swift */; };
+		E486667A2F1C97BC00A803A9 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666732F1C97BC00A803A9 /* MenuBarManager.swift */; };
+		E486667C2F1C9ED200A803A9 /* DorisAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486667B2F1C9ED200A803A9 /* DorisAnimationView.swift */; };
+		E486667E2F1CA00100A803A9 /* DorisAnimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486667D2F1CA00100A803A9 /* DorisAnimationState.swift */; };
+		E486667F2F1CA00100A803A9 /* DorisAnimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486667D2F1CA00100A803A9 /* DorisAnimationState.swift */; };
+		E48666812F1CA01400A803A9 /* FadingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666802F1CA01400A803A9 /* FadingTextView.swift */; };
+		E48666822F1CA01400A803A9 /* FadingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666802F1CA01400A803A9 /* FadingTextView.swift */; };
+		E48666842F1CA02C00A803A9 /* DorisGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666832F1CA02C00A803A9 /* DorisGeometry.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A1000000 /* DorisClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisClientApp.swift; sourceTree = "<group>"; };
+		A1000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1000022 /* ListeningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningView.swift; sourceTree = "<group>"; };
+		A1000024 /* ThinkingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkingView.swift; sourceTree = "<group>"; };
+		A1000026 /* SpeakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingView.swift; sourceTree = "<group>"; };
+		A10000FE /* DorisClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DorisClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4838C6B2F05C868001DC1D0 /* MorphingAnimationView 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MorphingAnimationView 2.swift"; sourceTree = "<group>"; };
+		E48666312F1C93C300A803A9 /* DorisClientMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DorisClientMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E486664A2F1C970600A803A9 /* DorisState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisState.swift; sourceTree = "<group>"; };
+		E486664E2F1C970600A803A9 /* AudioPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
+		E486664F2F1C970600A803A9 /* AudioRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderService.swift; sourceTree = "<group>"; };
+		E48666502F1C970600A803A9 /* DorisAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisAPIService.swift; sourceTree = "<group>"; };
+		E48666512F1C970600A803A9 /* WakeWordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeWordService.swift; sourceTree = "<group>"; };
+		E48666532F1C970600A803A9 /* DorisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisViewModel.swift; sourceTree = "<group>"; };
+		E48666552F1C970600A803A9 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		E486666D2F1C97BC00A803A9 /* ChatPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPopoverView.swift; sourceTree = "<group>"; };
+		E486666E2F1C97BC00A803A9 /* ChatWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWindowView.swift; sourceTree = "<group>"; };
+		E486666F2F1C97BC00A803A9 /* DorisSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisSceneView.swift; sourceTree = "<group>"; };
+		E48666712F1C97BC00A803A9 /* GlobalHotkey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotkey.swift; sourceTree = "<group>"; };
+		E48666722F1C97BC00A803A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E48666732F1C97BC00A803A9 /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
+		E486667B2F1C9ED200A803A9 /* DorisAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisAnimationView.swift; sourceTree = "<group>"; };
+		E486667D2F1CA00100A803A9 /* DorisAnimationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisAnimationState.swift; sourceTree = "<group>"; };
+		E48666802F1CA01400A803A9 /* FadingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadingTextView.swift; sourceTree = "<group>"; };
+		E48666832F1CA02C00A803A9 /* DorisGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisGeometry.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E48666322F1C93C300A803A9 /* DorisClientMac */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DorisClientMac; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10000FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E486662E2F1C93C300A803A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000F0 = {
+			isa = PBXGroup;
+			children = (
+				A10000FF /* DorisClient */,
+				E48666322F1C93C300A803A9 /* DorisClientMac */,
+				A10000FD /* Products */,
+				E48666582F1C970600A803A9 /* Shared */,
+				E48666742F1C97BC00A803A9 /* DorisClientMac */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A10000F2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A10000F3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E486667B2F1C9ED200A803A9 /* DorisAnimationView.swift */,
+				E4838C6B2F05C868001DC1D0 /* MorphingAnimationView 2.swift */,
+				A1000022 /* ListeningView.swift */,
+				A1000024 /* ThinkingView.swift */,
+				A1000026 /* SpeakingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A10000F4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A10000FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000FE /* DorisClient.app */,
+				E48666312F1C93C300A803A9 /* DorisClientMac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000FF /* DorisClient */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000 /* DorisClientApp.swift */,
+				A1000002 /* ContentView.swift */,
+				A1000005 /* Info.plist */,
+				A10000F1 /* Models */,
+				A10000F2 /* ViewModels */,
+				A10000F3 /* Views */,
+				A10000F4 /* Services */,
+			);
+			path = DorisClient;
+			sourceTree = "<group>";
+		};
+		E486664B2F1C970600A803A9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E486667D2F1CA00100A803A9 /* DorisAnimationState.swift */,
+				E486664A2F1C970600A803A9 /* DorisState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E486664D2F1C970600A803A9 /* SceneKit */ = {
+			isa = PBXGroup;
+			children = (
+				E48666832F1CA02C00A803A9 /* DorisGeometry.swift */,
+			);
+			path = SceneKit;
+			sourceTree = "<group>";
+		};
+		E48666522F1C970600A803A9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E486664E2F1C970600A803A9 /* AudioPlayerService.swift */,
+				E486664F2F1C970600A803A9 /* AudioRecorderService.swift */,
+				E48666502F1C970600A803A9 /* DorisAPIService.swift */,
+				E48666512F1C970600A803A9 /* WakeWordService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E48666542F1C970600A803A9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E48666532F1C970600A803A9 /* DorisViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E48666572F1C970600A803A9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E48666802F1CA01400A803A9 /* FadingTextView.swift */,
+				E48666552F1C970600A803A9 /* Color+Hex.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E48666582F1C970600A803A9 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E486664B2F1C970600A803A9 /* Models */,
+				E486664D2F1C970600A803A9 /* SceneKit */,
+				E48666522F1C970600A803A9 /* Services */,
+				E48666542F1C970600A803A9 /* ViewModels */,
+				E48666572F1C970600A803A9 /* Views */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		E48666702F1C97BC00A803A9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E486666D2F1C97BC00A803A9 /* ChatPopoverView.swift */,
+				E486666E2F1C97BC00A803A9 /* ChatWindowView.swift */,
+				E486666F2F1C97BC00A803A9 /* DorisSceneView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E48666742F1C97BC00A803A9 /* DorisClientMac */ = {
+			isa = PBXGroup;
+			children = (
+				E48666702F1C97BC00A803A9 /* Views */,
+				E48666712F1C97BC00A803A9 /* GlobalHotkey.swift */,
+				E48666722F1C97BC00A803A9 /* Info.plist */,
+				E48666732F1C97BC00A803A9 /* MenuBarManager.swift */,
+			);
+			path = DorisClientMac;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000FA /* DorisClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000A0 /* Build configuration list for PBXNativeTarget "DorisClient" */;
+			buildPhases = (
+				A10000F5 /* Sources */,
+				A10000FB /* Frameworks */,
+				A10000FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DorisClient;
+			productName = DorisClient;
+			productReference = A10000FE /* DorisClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E48666302F1C93C300A803A9 /* DorisClientMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E486663B2F1C93C500A803A9 /* Build configuration list for PBXNativeTarget "DorisClientMac" */;
+			buildPhases = (
+				E486662D2F1C93C300A803A9 /* Sources */,
+				E486662E2F1C93C300A803A9 /* Frameworks */,
+				E486662F2F1C93C300A803A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E48666322F1C93C300A803A9 /* DorisClientMac */,
+			);
+			name = DorisClientMac;
+			packageProductDependencies = (
+			);
+			productName = DorisClientMac;
+			productReference = E48666312F1C93C300A803A9 /* DorisClientMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10000F6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A10000FA = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					E48666302F1C93C300A803A9 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = A10000A1 /* Build configuration list for PBXProject "DorisClient" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A10000F0;
+			productRefGroup = A10000FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000FA /* DorisClient */,
+				E48666302F1C93C300A803A9 /* DorisClientMac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E486662F2F1C93C300A803A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E48666752F1C97BC00A803A9 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001 /* DorisClientApp.swift in Sources */,
+				A1000003 /* ContentView.swift in Sources */,
+				A1000023 /* ListeningView.swift in Sources */,
+				A1000025 /* ThinkingView.swift in Sources */,
+				A1000027 /* SpeakingView.swift in Sources */,
+				E4838C6C2F05C868001DC1D0 /* MorphingAnimationView 2.swift in Sources */,
+				E48666592F1C970600A803A9 /* AudioRecorderService.swift in Sources */,
+				E486665A2F1C970600A803A9 /* DorisViewModel.swift in Sources */,
+				E48666822F1CA01400A803A9 /* FadingTextView.swift in Sources */,
+				E486665C2F1C970600A803A9 /* WakeWordService.swift in Sources */,
+				E486667F2F1CA00100A803A9 /* DorisAnimationState.swift in Sources */,
+				E486667C2F1C9ED200A803A9 /* DorisAnimationView.swift in Sources */,
+				E486665E2F1C970600A803A9 /* AudioPlayerService.swift in Sources */,
+				E48666602F1C970600A803A9 /* Color+Hex.swift in Sources */,
+				E48666612F1C970600A803A9 /* DorisState.swift in Sources */,
+				E48666622F1C970600A803A9 /* DorisAPIService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E486662D2F1C93C300A803A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E486667E2F1CA00100A803A9 /* DorisAnimationState.swift in Sources */,
+				E48666632F1C970600A803A9 /* AudioRecorderService.swift in Sources */,
+				E48666642F1C970600A803A9 /* DorisViewModel.swift in Sources */,
+				E48666662F1C970600A803A9 /* WakeWordService.swift in Sources */,
+				E48666762F1C97BC00A803A9 /* ChatPopoverView.swift in Sources */,
+				E48666772F1C97BC00A803A9 /* ChatWindowView.swift in Sources */,
+				E48666782F1C97BC00A803A9 /* DorisSceneView.swift in Sources */,
+				E48666792F1C97BC00A803A9 /* GlobalHotkey.swift in Sources */,
+				E48666842F1CA02C00A803A9 /* DorisGeometry.swift in Sources */,
+				E486667A2F1C97BC00A803A9 /* MenuBarManager.swift in Sources */,
+				E48666682F1C970600A803A9 /* AudioPlayerService.swift in Sources */,
+				E486666A2F1C970600A803A9 /* Color+Hex.swift in Sources */,
+				E486666B2F1C970600A803A9 /* DorisState.swift in Sources */,
+				E486666C2F1C970600A803A9 /* DorisAPIService.swift in Sources */,
+				E48666812F1CA01400A803A9 /* FadingTextView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A10000A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A10000A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A10000A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TT6WUKFN4N;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = DorisClient/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Doris needs microphone access to hear your requests";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Doris uses speech recognition to transcribe your requests";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doris.client;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TT6WUKFN4N;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = DorisClient/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Doris needs microphone access to hear your requests";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Doris uses speech recognition to transcribe your requests";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doris.client;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E48666392F1C93C500A803A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TT6WUKFN4N;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DorisClientMac/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = DorisClientMac/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Doris;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Doris uses accessibility features for global keyboard shortcuts.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Doris needs microphone access to listen to your voice commands.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Doris uses speech recognition to understand your voice.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doris.DorisClientMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E486663A2F1C93C500A803A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TT6WUKFN4N;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DorisClientMac/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = DorisClientMac/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Doris;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Doris uses accessibility features for global keyboard shortcuts.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Doris needs microphone access to listen to your voice commands.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Doris uses speech recognition to understand your voice.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doris.DorisClientMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10000A0 /* Build configuration list for PBXNativeTarget "DorisClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000A4 /* Debug */,
+				A10000A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000A1 /* Build configuration list for PBXProject "DorisClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000A2 /* Debug */,
+				A10000A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E486663B2F1C93C500A803A9 /* Build configuration list for PBXNativeTarget "DorisClientMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E48666392F1C93C500A803A9 /* Debug */,
+				E486663A2F1C93C500A803A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A10000F6 /* Project object */;
+}
