@@ -39,6 +39,10 @@
 		E48666812F1CA01400A803A9 /* FadingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666802F1CA01400A803A9 /* FadingTextView.swift */; };
 		E48666822F1CA01400A803A9 /* FadingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666802F1CA01400A803A9 /* FadingTextView.swift */; };
 		E48666842F1CA02C00A803A9 /* DorisGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666832F1CA02C00A803A9 /* DorisGeometry.swift */; };
+		E48666872F1CA10000A803A9 /* ConversationSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666852F1CA10000A803A9 /* ConversationSyncService.swift */; };
+		E48666882F1CA10000A803A9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666862F1CA10000A803A9 /* LocationService.swift */; };
+		E48666892F1CA10000A803A9 /* ConversationSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666852F1CA10000A803A9 /* ConversationSyncService.swift */; };
+		E486668A2F1CA10000A803A9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666862F1CA10000A803A9 /* LocationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,8 @@
 		E486664F2F1C970600A803A9 /* AudioRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderService.swift; sourceTree = "<group>"; };
 		E48666502F1C970600A803A9 /* DorisAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisAPIService.swift; sourceTree = "<group>"; };
 		E48666512F1C970600A803A9 /* WakeWordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeWordService.swift; sourceTree = "<group>"; };
+		E48666852F1CA10000A803A9 /* ConversationSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationSyncService.swift; sourceTree = "<group>"; };
+		E48666862F1CA10000A803A9 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E48666532F1C970600A803A9 /* DorisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisViewModel.swift; sourceTree = "<group>"; };
 		E48666552F1C970600A803A9 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E486666D2F1C97BC00A803A9 /* ChatPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPopoverView.swift; sourceTree = "<group>"; };
@@ -181,7 +187,9 @@
 			children = (
 				E486664E2F1C970600A803A9 /* AudioPlayerService.swift */,
 				E486664F2F1C970600A803A9 /* AudioRecorderService.swift */,
+				E48666852F1CA10000A803A9 /* ConversationSyncService.swift */,
 				E48666502F1C970600A803A9 /* DorisAPIService.swift */,
+				E48666862F1CA10000A803A9 /* LocationService.swift */,
 				E48666512F1C970600A803A9 /* WakeWordService.swift */,
 			);
 			path = Services;
@@ -355,6 +363,8 @@
 				E48666602F1C970600A803A9 /* Color+Hex.swift in Sources */,
 				E48666612F1C970600A803A9 /* DorisState.swift in Sources */,
 				E48666622F1C970600A803A9 /* DorisAPIService.swift in Sources */,
+				E48666872F1CA10000A803A9 /* ConversationSyncService.swift in Sources */,
+				E48666882F1CA10000A803A9 /* LocationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +387,8 @@
 				E486666B2F1C970600A803A9 /* DorisState.swift in Sources */,
 				E486666C2F1C970600A803A9 /* DorisAPIService.swift in Sources */,
 				E48666812F1CA01400A803A9 /* FadingTextView.swift in Sources */,
+				E48666892F1CA10000A803A9 /* ConversationSyncService.swift in Sources */,
+				E486668A2F1CA10000A803A9 /* LocationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

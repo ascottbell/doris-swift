@@ -129,6 +129,9 @@ class DorisViewModel: ObservableObject {
         state = .listening
         lastResponse = ""
 
+        // Pause wake word so both recognizers don't conflict
+        pauseWakeWord()
+
         recorder.start { [weak self] power, transcription in
             self?.audioPower = power
         } onSilenceDetected: { [weak self] finalText in
@@ -139,6 +142,7 @@ class DorisViewModel: ObservableObject {
     func stopListening() {
         recorder.stop()
         state = .idle
+        resumeWakeWord()
     }
 
     // MARK: - Send Message (voice or text)
