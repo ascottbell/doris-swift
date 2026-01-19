@@ -338,6 +338,7 @@ struct MessageBubble: View {
                 Text(message.text)
                     .font(.system(size: 14))
                     .foregroundColor(message.isUser ? .white : .black.opacity(0.85))
+                    .textSelection(.enabled)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 10)
                     .background(

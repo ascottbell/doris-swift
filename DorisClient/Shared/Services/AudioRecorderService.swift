@@ -80,8 +80,12 @@ class AudioRecorderService: NSObject, ObservableObject {
     // MARK: - Platform-specific permission handling
 
     private func requestPermissions(completion: @escaping (Bool) -> Void) {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            OperationQueue.main.addOperation {
+        SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
+            Task { @MainActor in
+                guard let self else {
+                    completion(false)
+                    return
+                }
                 switch authStatus {
                 case .authorized:
                     self.requestMicrophonePermission(completion: completion)
@@ -128,6 +132,13 @@ class AudioRecorderService: NSObject, ObservableObject {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            #elseif os(macOS)
+            // Check if there's actually an audio input device available
+            guard AVCaptureDevice.default(for: .audio) != nil else {
+                print("AudioRecorderService: No microphone available")
+                silenceCallback?("")
+                return
+            }
             #endif
 
             audioEngine = AVAudioEngine()

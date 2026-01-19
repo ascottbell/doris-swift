@@ -19,11 +19,7 @@ class LocationService: NSObject, ObservableObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
 
         // Check current authorization
-        #if os(iOS)
         authorizationStatus = locationManager.authorizationStatus
-        #else
-        authorizationStatus = CLLocationManager.authorizationStatus()
-        #endif
     }
 
     /// Request location permission
@@ -107,11 +103,7 @@ extension LocationService: CLLocationManagerDelegate {
 
     nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         Task { @MainActor in
-            #if os(iOS)
             self.authorizationStatus = manager.authorizationStatus
-            #else
-            self.authorizationStatus = CLLocationManager.authorizationStatus()
-            #endif
             print("LocationService: Authorization changed to \(self.authorizationStatus.rawValue)")
         }
     }

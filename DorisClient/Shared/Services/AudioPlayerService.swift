@@ -59,8 +59,9 @@ class AudioPlayerService: NSObject, ObservableObject, AVAudioPlayerDelegate {
         displayLink?.add(to: .main, forMode: .common)
         #elseif os(macOS)
         displayTimer = Timer.scheduledTimer(withTimeInterval: 1.0/30.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                self?.updatePower()
+            guard let self else { return }
+            Task { @MainActor [self] in
+                self.updatePower()
             }
         }
         #endif

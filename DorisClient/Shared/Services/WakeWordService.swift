@@ -21,6 +21,11 @@ class WakeWordService: NSObject, ObservableObject {
 
     private var wakeWordCallback: (() -> Void)?
     private var restartTimer: Timer?
+    private var noMicrophoneDetected = false
+
+    /// Flag to pause wake word when AudioRecorderService is recording
+    /// (SFSpeechRecognizer only allows one active session at a time)
+    var isPaused = false
 
     // Wake word variations to detect
     private let wakeWords = [
@@ -66,12 +71,14 @@ class WakeWordService: NSObject, ObservableObject {
 
     /// Temporarily pause wake word detection (e.g., while Doris is speaking)
     func pause() {
+        isPaused = true
         stopListening()
     }
 
     /// Resume wake word detection
     func resume() {
-        if wakeWordCallback != nil {
+        isPaused = false
+        if wakeWordCallback != nil && !noMicrophoneDetected {
             startListening()
         }
     }
@@ -117,6 +124,15 @@ class WakeWordService: NSObject, ObservableObject {
     // MARK: - Listening
 
     private func startListening() {
+        // Don't start if paused (AudioRecorderService is using SFSpeechRecognizer)
+        guard !isPaused else {
+            print("WakeWordService: Paused, not starting")
+            return
+        }
+
+        // Don't retry if we already know there's no mic
+        guard !noMicrophoneDetected else { return }
+
         guard let speechRecognizer = speechRecognizer, speechRecognizer.isAvailable else {
             print("WakeWordService: Speech recognizer not available")
             scheduleRestart()
@@ -130,10 +146,20 @@ class WakeWordService: NSObject, ObservableObject {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            #elseif os(macOS)
+            // Check if there's actually an audio input device available
+            guard AVCaptureDevice.default(for: .audio) != nil else {
+                print("WakeWordService: No microphone available")
+                noMicrophoneDetected = true
+                return
+            }
             #endif
 
             audioEngine = AVAudioEngine()
             guard let audioEngine = audioEngine else { return }
+
+            let inputNode = audioEngine.inputNode
+            let recordingFormat = inputNode.outputFormat(forBus: 0)
 
             recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
             guard let recognitionRequest = recognitionRequest else { return }
@@ -145,9 +171,6 @@ class WakeWordService: NSObject, ObservableObject {
             if #available(macOS 13.0, iOS 16.0, *) {
                 recognitionRequest.requiresOnDeviceRecognition = speechRecognizer.supportsOnDeviceRecognition
             }
-
-            let inputNode = audioEngine.inputNode
-            let recordingFormat = inputNode.outputFormat(forBus: 0)
 
             inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, _ in
                 self?.recognitionRequest?.append(buffer)
@@ -206,8 +229,15 @@ class WakeWordService: NSObject, ObservableObject {
             }
 
         } catch {
-            print("WakeWordService: Error starting: \(error)")
-            scheduleRestart()
+            let errorString = error.localizedDescription.lowercased()
+            // Don't retry for audio device errors
+            if errorString.contains("format") || errorString.contains("input") || errorString.contains("device") {
+                print("WakeWordService: No microphone available - \(error.localizedDescription)")
+                noMicrophoneDetected = true
+            } else {
+                print("WakeWordService: Error starting: \(error)")
+                scheduleRestart()
+            }
         }
     }
 
@@ -233,8 +263,9 @@ class WakeWordService: NSObject, ObservableObject {
     private func scheduleRestart(delay: TimeInterval = 1.0) {
         restartTimer?.invalidate()
         restartTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
-            Task { @MainActor in
-                self?.startListening()
+            guard let self else { return }
+            Task { @MainActor [self] in
+                self.startListening()
             }
         }
     }

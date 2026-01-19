@@ -140,7 +140,7 @@ struct ChatPopoverView: View {
         menuBarManager.hidePopover()
 
         // Open the full window
-        NSApp.sendAction(Selector(("showWindow:")), to: nil, from: nil)
+        NSApp.sendAction(NSSelectorFromString("showWindow:"), to: nil, from: nil)
 
         if let window = NSApp.windows.first(where: { $0.title == "Doris" }) {
             window.makeKeyAndOrderFront(nil)

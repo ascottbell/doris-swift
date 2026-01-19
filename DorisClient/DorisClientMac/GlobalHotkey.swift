@@ -43,7 +43,7 @@ class GlobalHotkeyManager {
         }
 
         // Register Option+Space
-        var hotKeyID = EventHotKeyID(
+        let hotKeyID = EventHotKeyID(
             signature: OSType(0x444F5253), // "DORS"
             id: 1
         )

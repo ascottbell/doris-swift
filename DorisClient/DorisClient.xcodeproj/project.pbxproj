@@ -27,7 +27,6 @@
 		E486666A2F1C970600A803A9 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666552F1C970600A803A9 /* Color+Hex.swift */; };
 		E486666B2F1C970600A803A9 /* DorisState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664A2F1C970600A803A9 /* DorisState.swift */; };
 		E486666C2F1C970600A803A9 /* DorisAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666502F1C970600A803A9 /* DorisAPIService.swift */; };
-		E48666752F1C97BC00A803A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E48666722F1C97BC00A803A9 /* Info.plist */; };
 		E48666762F1C97BC00A803A9 /* ChatPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486666D2F1C97BC00A803A9 /* ChatPopoverView.swift */; };
 		E48666772F1C97BC00A803A9 /* ChatWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486666E2F1C97BC00A803A9 /* ChatWindowView.swift */; };
 		E48666782F1C97BC00A803A9 /* DorisSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486666F2F1C97BC00A803A9 /* DorisSceneView.swift */; };
@@ -76,8 +75,18 @@
 		E48666832F1CA02C00A803A9 /* DorisGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisGeometry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E48666322F1C93C300A803A9_EXCEPTIONS /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E48666302F1C93C300A803A9 /* DorisClientMac */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E48666322F1C93C300A803A9 /* DorisClientMac */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DorisClientMac; sourceTree = "<group>"; };
+		E48666322F1C93C300A803A9 /* DorisClientMac */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E48666322F1C93C300A803A9_EXCEPTIONS /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = DorisClientMac; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,7 +345,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E48666752F1C97BC00A803A9 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,12 +384,7 @@
 				E48666632F1C970600A803A9 /* AudioRecorderService.swift in Sources */,
 				E48666642F1C970600A803A9 /* DorisViewModel.swift in Sources */,
 				E48666662F1C970600A803A9 /* WakeWordService.swift in Sources */,
-				E48666762F1C97BC00A803A9 /* ChatPopoverView.swift in Sources */,
-				E48666772F1C97BC00A803A9 /* ChatWindowView.swift in Sources */,
-				E48666782F1C97BC00A803A9 /* DorisSceneView.swift in Sources */,
-				E48666792F1C97BC00A803A9 /* GlobalHotkey.swift in Sources */,
 				E48666842F1CA02C00A803A9 /* DorisGeometry.swift in Sources */,
-				E486667A2F1C97BC00A803A9 /* MenuBarManager.swift in Sources */,
 				E48666682F1C970600A803A9 /* AudioPlayerService.swift in Sources */,
 				E486666A2F1C970600A803A9 /* Color+Hex.swift in Sources */,
 				E486666B2F1C970600A803A9 /* DorisState.swift in Sources */,
