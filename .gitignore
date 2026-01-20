@@ -24,3 +24,4 @@ Pods/
 .env.local
 *.pem
 */xcuserdata/*
+*/xcuserdata/

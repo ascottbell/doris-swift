@@ -99,7 +99,7 @@ class DorisAPIService {
 
     // MARK: - Chat
 
-    func chat(message: String, includeAudio: Bool = true) async throws -> (text: String, audioData: Data?) {
+    func chat(message: String, history: [ChatMessage]? = nil, includeAudio: Bool = true) async throws -> (text: String, audioData: Data?) {
         guard let url = URL(string: "\(baseURL)/chat/text") else {
             throw APIError.invalidURL
         }
@@ -111,7 +111,7 @@ class DorisAPIService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let chatRequest = ChatRequest(message: message, context: ClientContext(location: location))
+        let chatRequest = ChatRequest(message: message, history: history, context: ClientContext(location: location))
         request.httpBody = try JSONEncoder().encode(chatRequest)
 
         let (data, response) = try await URLSession.shared.data(for: request)

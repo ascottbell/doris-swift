@@ -194,7 +194,15 @@ class DorisViewModel: ObservableObject {
             print("DorisViewModel: Starting API call")
 
             do {
-                let response = try await api.chat(message: text, includeAudio: withAudio)
+                // Convert conversation history to API format (last 20 messages for context)
+                let historyMessages = conversationHistory.suffix(20).map { msg in
+                    DorisAPIService.ChatMessage(
+                        role: msg.isUser ? "user" : "assistant",
+                        content: msg.text
+                    )
+                }
+
+                let response = try await api.chat(message: text, history: Array(historyMessages), includeAudio: withAudio)
 
                 let elapsed = DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds
                 print("DorisViewModel: API returned after \(elapsed / 1_000_000)ms")
