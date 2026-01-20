@@ -20,6 +20,7 @@ class DorisViewModel: ObservableObject {
 
     private let minimumThinkingTime: UInt64 = 2_000_000_000
     private var syncObserver: NSObjectProtocol?
+    private var clearObserver: NSObjectProtocol?
 
     init() {
         // Load history from iCloud
@@ -37,12 +38,28 @@ class DorisViewModel: ObservableObject {
             }
         }
 
+        // Listen for clear conversation command (Cmd+K)
+        clearObserver = NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("clearConversation"),
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self else { return }
+            Task { @MainActor [self] in
+                self.clearHistory()
+                print("DorisViewModel: Conversation cleared via Cmd+K")
+            }
+        }
+
         // Request location permission on launch
         LocationService.shared.requestPermission()
     }
 
     deinit {
         if let observer = syncObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        if let observer = clearObserver {
             NotificationCenter.default.removeObserver(observer)
         }
     }

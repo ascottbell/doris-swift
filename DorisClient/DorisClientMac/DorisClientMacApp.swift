@@ -9,6 +9,10 @@ import SwiftUI
 import AppKit
 import Combine
 
+extension Notification.Name {
+    static let clearConversation = Notification.Name("clearConversation")
+}
+
 @main
 struct DorisClientMacApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -37,6 +41,12 @@ struct DorisClientMacApp: App {
         .defaultSize(width: 450, height: 650)
         .commands {
             CommandGroup(replacing: .newItem) { }  // Remove "New Window" menu item
+            CommandGroup(after: .pasteboard) {
+                Button("Clear Conversation") {
+                    NotificationCenter.default.post(name: .clearConversation, object: nil)
+                }
+                .keyboardShortcut("k", modifiers: .command)
+            }
         }
 
         // Menu bar quick access (secondary)
