@@ -11,6 +11,17 @@ class DorisAPIService {
         }
     }
 
+    /// Current user identity (adam, gabby, levi, dani)
+    /// Set once in settings, included in all requests
+    var currentUser: String? {
+        get {
+            UserDefaults.standard.string(forKey: "currentUser")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "currentUser")
+        }
+    }
+
     // MARK: - Chat Models
 
     struct ChatMessage: Codable {
@@ -67,6 +78,7 @@ class DorisAPIService {
         let history: [ChatMessage]?
         let client_context: ClientContext?
         let tool_result: ToolResult?
+        let user: String?  // User identity for personalized responses
     }
 
     struct ChatResponse: Codable {

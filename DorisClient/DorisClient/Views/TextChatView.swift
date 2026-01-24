@@ -10,6 +10,7 @@ struct TextChatView: View {
     @State private var keyboardHeight: CGFloat = 0
     @State private var loadedMessageCount: Int = 50
     @State private var isLoadingMore: Bool = false
+    @State private var showSettings: Bool = false
 
     private let warmWhite = Color(red: 1.0, green: 0.973, blue: 0.941)
 
@@ -20,11 +21,19 @@ struct TextChatView: View {
                     .ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    // Search bar at top - more padding from Dynamic Island
-                    searchBar
-                        .padding(.top, 4)
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 12)
+                    // Header with search bar and settings
+                    HStack(spacing: 12) {
+                        searchBar
+
+                        Button(action: { showSettings = true }) {
+                            Image(systemName: "gearshape.fill")
+                                .font(.system(size: 20))
+                                .foregroundColor(warmWhite.opacity(0.8))
+                        }
+                    }
+                    .padding(.top, 4)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 12)
 
                     // Messages or search results
                     if isSearchMode {
@@ -52,6 +61,9 @@ struct TextChatView: View {
         .onTapGesture {
             isInputFocused = false
             isSearchFocused = false
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView()
         }
     }
 

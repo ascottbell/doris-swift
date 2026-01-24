@@ -177,7 +177,8 @@ class DorisViewModel: ObservableObject {
                     message: text,
                     history: history.isEmpty ? nil : history,
                     client_context: context,
-                    tool_result: nil
+                    tool_result: nil,
+                    user: api.currentUser
                 )
 
                 // Tool execution loop
@@ -197,7 +198,8 @@ class DorisViewModel: ObservableObject {
                             message: nil,
                             history: history.isEmpty ? nil : history,
                             client_context: context,
-                            tool_result: toolResult
+                            tool_result: toolResult,
+                            user: api.currentUser
                         )
                         continue
                     }
@@ -372,7 +374,8 @@ class DorisViewModel: ObservableObject {
                     message: text,
                     history: history.isEmpty ? nil : history,
                     client_context: context,
-                    tool_result: nil
+                    tool_result: nil,
+                    user: api.currentUser
                 )
 
                 // Tool execution loop (same as voice, but no TTS)
@@ -389,7 +392,8 @@ class DorisViewModel: ObservableObject {
                             message: nil,
                             history: history.isEmpty ? nil : history,
                             client_context: context,
-                            tool_result: toolResult
+                            tool_result: toolResult,
+                            user: api.currentUser
                         )
                         continue
                     }
