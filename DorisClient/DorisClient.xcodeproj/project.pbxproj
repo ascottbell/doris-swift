@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1000007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000006 /* Assets.xcassets */; };
+		A1000008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000006 /* Assets.xcassets */; };
 		A1000001 /* DorisClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000 /* DorisClientApp.swift */; };
 		A1000003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002 /* ContentView.swift */; };
 		A1000023 /* ListeningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022 /* ListeningView.swift */; };
 		A1000025 /* ThinkingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024 /* ThinkingView.swift */; };
 		A1000027 /* SpeakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000026 /* SpeakingView.swift */; };
-		E4838C6C2F05C868001DC1D0 /* MorphingAnimationView 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4838C6B2F05C868001DC1D0 /* MorphingAnimationView 2.swift */; };
 		E48666592F1C970600A803A9 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486664F2F1C970600A803A9 /* AudioRecorderService.swift */; };
 		E486665A2F1C970600A803A9 /* DorisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666532F1C970600A803A9 /* DorisViewModel.swift */; };
 		E486665C2F1C970600A803A9 /* WakeWordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48666512F1C970600A803A9 /* WakeWordService.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1000006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000000 /* DorisClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisClientApp.swift; sourceTree = "<group>"; };
 		A1000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,7 +54,6 @@
 		A1000024 /* ThinkingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkingView.swift; sourceTree = "<group>"; };
 		A1000026 /* SpeakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingView.swift; sourceTree = "<group>"; };
 		A10000FE /* DorisClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DorisClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4838C6B2F05C868001DC1D0 /* MorphingAnimationView 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MorphingAnimationView 2.swift"; sourceTree = "<group>"; };
 		E48666312F1C93C300A803A9 /* DorisClientMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DorisClientMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E486664A2F1C970600A803A9 /* DorisState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorisState.swift; sourceTree = "<group>"; };
 		E486664E2F1C970600A803A9 /* AudioPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
@@ -136,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				E486667B2F1C9ED200A803A9 /* DorisAnimationView.swift */,
-				E4838C6B2F05C868001DC1D0 /* MorphingAnimationView 2.swift */,
 				A1000022 /* ListeningView.swift */,
 				A1000024 /* ThinkingView.swift */,
 				A1000026 /* SpeakingView.swift */,
@@ -163,6 +163,7 @@
 		A10000FF /* DorisClient */ = {
 			isa = PBXGroup;
 			children = (
+				A1000006 /* Assets.xcassets */,
 				A1000000 /* DorisClientApp.swift */,
 				A1000002 /* ContentView.swift */,
 				A1000005 /* Info.plist */,
@@ -338,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000007 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000008 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +363,6 @@
 				A1000023 /* ListeningView.swift in Sources */,
 				A1000025 /* ThinkingView.swift in Sources */,
 				A1000027 /* SpeakingView.swift in Sources */,
-				E4838C6C2F05C868001DC1D0 /* MorphingAnimationView 2.swift in Sources */,
 				E48666592F1C970600A803A9 /* AudioRecorderService.swift in Sources */,
 				E486665A2F1C970600A803A9 /* DorisViewModel.swift in Sources */,
 				E48666822F1CA01400A803A9 /* FadingTextView.swift in Sources */,
